@@ -53,7 +53,7 @@ def fetch_book(filename):
             name = name[0].strip()
             format_index = name.find('epub')
             if format_index != -1:
-                name = name[:format_index-1]
+                name = name[:format_index]
 
             passwd = tree.xpath('//div[@class="desc"]/p[last()-1]/text()')[0].strip()
             space_index = passwd.find('&nbsp')
