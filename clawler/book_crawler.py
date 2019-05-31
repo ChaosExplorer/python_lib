@@ -6,7 +6,7 @@ import random
 import hashlib
 import sys
 
-sys.path.insert(0, '/home/chaos/PycharmProjects/Crawler')
+sys.path.insert(0, '../Crawler')
 from page import user_agent
 
 reach_end_count = 0;
