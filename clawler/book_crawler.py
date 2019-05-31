@@ -7,6 +7,7 @@ import hashlib
 import sys
 
 sys.path.insert(0, '../Crawler')
+from book_filter import filter
 from page import user_agent
 
 reach_end_count = 0;
@@ -28,8 +29,8 @@ def get_one_page(url, retry=0):
         retry -= 1
 
 
-def fetch_book(filename):
-    page_index = -1
+def fetch_book(filename, id=-1):
+    page_index = id
     reach_end_count = 0
 
     url_prefix = 'http://mebook.cc/download.php?id='
@@ -62,9 +63,12 @@ def fetch_book(filename):
             location = location[0].strip()
             if get_one_page(location, 3) is None:
                 continue
+            line = str(page_index) + " , " + name + " , " + passwd + " , " + location
 
-            print(str(page_index) + " , " + name + " , " + passwd + " , " + location)
-            f.write(str(page_index) + " , " + name + " , " + passwd + " , " + location + '\n')
+            line = filter(line)
+            if line:
+                print(line)
+                f.write(line + '\n')
 
 if __name__ == '__main__':
-    fetch_book(sys.argv[1])
+    fetch_book(sys.argv[1], int(sys.argv[2]))
